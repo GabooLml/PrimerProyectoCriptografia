@@ -18,6 +18,14 @@ start_time = time.time()
 plaintext = b"Me llamo Gabriel Rojas Mendez" * 1000000
 encryptor = cipher.encryptor()
 ciphertext = encryptor.update(plaintext) + encryptor.finalize()
+## Verificación de cifrado
+#print(ciphertext)
+
+# Descifrar 1MB de datos
+decryptor = cipher.decryptor()
+plaintext = decryptor.update(ciphertext) + decryptor.finalize()
+#Verificación de descifrado
+#print(plaintext)
 
 end_time = time.time()
 
