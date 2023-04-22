@@ -16,5 +16,7 @@
  ### Linux
  Abrir la terminal en la misma ubicación que los archivos .py y ejecutar el comando:
  python3 run.py
+ ### MacOS
+ Abrir la terminal en la misma ubicación que los archivos .py y ejecutar el comando:
 
- Se crearán carpetas de entorno virtual (proyecto1) en la ubicación donde se encuentre run.py, donde se ejecutara el programa
+ Se crearán carpetas del entorno virtual (proyecto1) en la ubicación donde se encuentre run.py que servirán para ejecutar el programa
