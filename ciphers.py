@@ -5,11 +5,12 @@ from base64 import b64decode
 from Crypto.Random import get_random_bytes
 from Crypto.Cipher import ChaCha20, AES, PKCS1_OAEP
 from Crypto.PublicKey import RSA
+from Crypto.Util.Padding import pad, unpad
 
-BLOCK_SIZE = 32  # Bytes = 16 bits
-pad = lambda s: s + (BLOCK_SIZE - len(s) % BLOCK_SIZE) * \
-                chr(BLOCK_SIZE - len(s) % BLOCK_SIZE)
-unpad = lambda s: s[:-ord(s[len(s) - 1:])]
+#BLOCK_SIZE = 32  # Bytes = 16 bits
+#pad = lambda s: s + (BLOCK_SIZE - len(s) % BLOCK_SIZE) * \
+                #chr(BLOCK_SIZE - len(s) % BLOCK_SIZE)
+#unpad = lambda s: s[:-ord(s[len(s) - 1:])]
 
 class chacha20:
     def __init__(self):
@@ -54,9 +55,8 @@ class AES256:
         if mode == "ECB":
             # Medir el tiempo que tarda en cifrar
             self.start_time = time.time()
-            raw = pad(plaintext)
             cipher = AES.new(self.key, AES.MODE_ECB)
-            ciphertext =  b64encode(cipher.encrypt(raw.encode('utf8')))
+            ciphertext =  cipher.encrypt(pad(plaintext.encode('utf-8'), AES.block_size))#b64encode(cipher.encrypt(raw.encode('utf8')))
             self.end_time = time.time()
             return ciphertext
         elif mode == "GCM":
@@ -75,9 +75,8 @@ class AES256:
         if mode == "ECB":
             # Medir el tiempo que tarda en descifrar
             self.start_time = time.time()
-            ciphertext = b64decode(ciphertext)
             cipher = AES.new(self.key, AES.MODE_ECB)
-            plaintext = unpad(cipher.decrypt(ciphertext)).decode('utf8')
+            plaintext = unpad(cipher.decrypt(ciphertext), AES.block_size).decode('utf8')
             self.end_time = time.time()
             return plaintext
         elif mode == "GCM":
@@ -93,23 +92,46 @@ class AES256:
 
 class RSAOAEP:
     def __init__(self):
-        self.keyPair = RSA.generate(2048)
-        self.pubKey = self.keyPair.publickey()
+        self.key = RSA.generate(2048)
+        self.public_key = self.key.publickey()
+        self.private_key = self.key
         self.start_time = None
         self.end_time = None
 
     def encrypt(self, plaintext):
         # Medir el tiempo que tarda en cifrar
+        data = plaintext.encode()
+
+        # Dividir los datos en bloques de 214 bytes
+        block_size = 214
+        data_blocks = [data[i:i+block_size] for i in range(0, len(data), block_size)]
+
+        cipher_rsa = PKCS1_OAEP.new(self.public_key)
+
         self.start_time = time.time()
-        cipher = PKCS1_OAEP.new(self.pubKey)
-        ciphertext = cipher.encrypt(plaintext.encode('utf8'))
+        # Cifrar cada bloque de datos con RSA-OAEP
+        encrypted_blocks = [cipher_rsa.encrypt(block) for block in data_blocks]
         self.end_time = time.time()
-        return ciphertext
+
+        return encrypted_blocks
 
     def decrypt(self, ciphertext):
-        # Medir el tiempo que tarda en descifrar
+
+        # Dividir los datos en bloques de 214 bytes
+        block_size = 214
+
+        # Inicializar un objeto PKCS1_OAEP con la clave privada
+        cipher_rsa = PKCS1_OAEP.new(self.private_key)
+
         self.start_time = time.time()
-        cipher = PKCS1_OAEP.new(self.keyPair)
-        plaintext = cipher.decrypt(ciphertext)
+        # Descifrar cada bloque de datos con RSA-OAEP
+        decrypted_blocks = [cipher_rsa.decrypt(block) for block in ciphertext]
         self.end_time = time.time()
-        return plaintext.decode('utf8')
+
+        # Unir los bloques de datos descifrados
+        decrypted_data = b''.join(decrypted_blocks)
+
+        # Convertir los datos descifrados de bytes a cadena
+        plain_text = decrypted_data.decode()
+
+        return plain_text
