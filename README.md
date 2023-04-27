@@ -1,9 +1,9 @@
 # Primer Proyecto
 
 ## Colaboradores
- [Alejandro Antonio](https://github.com/Alejandror11)
- [Teresita de Jesús]()
- [Gabriel Rojas Méndez](https://github.com/GabooLml)
+ * [Alejandro Jesús Antonio Roblero](https://github.com/Alejandror11)
+ * [Teresita de Jesús Durán López](https://github.com/teredl8)
+ * [Gabriel Rojas Méndez](https://github.com/GabooLml)
 
 ## Requisitos
  Sistema operativo: Linux, Windows, MacOS
