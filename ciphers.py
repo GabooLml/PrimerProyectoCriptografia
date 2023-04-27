@@ -7,11 +7,6 @@ from Crypto.Cipher import ChaCha20, AES, PKCS1_OAEP
 from Crypto.PublicKey import RSA
 from Crypto.Util.Padding import pad, unpad
 
-#BLOCK_SIZE = 32  # Bytes = 16 bits
-#pad = lambda s: s + (BLOCK_SIZE - len(s) % BLOCK_SIZE) * \
-                #chr(BLOCK_SIZE - len(s) % BLOCK_SIZE)
-#unpad = lambda s: s[:-ord(s[len(s) - 1:])]
-
 class chacha20:
     def __init__(self):
         self.key = get_random_bytes(32)
@@ -56,7 +51,7 @@ class AES256:
             # Medir el tiempo que tarda en cifrar
             self.start_time = time.time()
             cipher = AES.new(self.key, AES.MODE_ECB)
-            ciphertext =  cipher.encrypt(pad(plaintext.encode('utf-8'), AES.block_size))#b64encode(cipher.encrypt(raw.encode('utf8')))
+            ciphertext =  cipher.encrypt(pad(plaintext.encode('utf-8'), AES.block_size))
             self.end_time = time.time()
             return ciphertext
         elif mode == "GCM":
