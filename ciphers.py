@@ -22,7 +22,7 @@ class chacha20:
         ct = b64encode(ciphertext).decode('utf-8')
         result = json.dumps({'nonce':nonce, 'ciphertext':ct})
         self.end_time = time.time()
-        print(ciphertext)
+        print(ct)
         return result
 
     def decrypt(self, jsonInput):
@@ -55,7 +55,9 @@ class AES256:
             cipher = AES.new(self.key, AES.MODE_ECB)
             ciphertext =  cipher.encrypt(pad(plaintext.encode('utf-8'), AES.block_size))
             self.end_time = time.time()
-            print(ciphertext)
+            ciphertext_b64 = b64encode(ciphertext)
+            ciphertext_str = ciphertext_b64.decode("utf-8")
+            print(ciphertext_str)
             return ciphertext
         elif mode == "GCM":
             # Medir el tiempo que tarda en cifrar
@@ -64,7 +66,9 @@ class AES256:
             self.nonce = cipher.nonce
             ciphertext = cipher.encrypt(plaintext.encode('utf8'))
             self.end_time = time.time()
-            print(ciphertext)
+            ciphertext_b64 = b64encode(ciphertext)
+            ciphertext_str = ciphertext_b64.decode("utf-8")
+            print(ciphertext_str)
             return ciphertext
         else:
             print("Invalid mode")
@@ -113,8 +117,14 @@ class RSAOAEP:
         # Cifrar cada bloque de datos con RSA-OAEP
         encrypted_blocks = [cipher_rsa.encrypt(block) for block in data_blocks]
         self.end_time = time.time()
-        print(encrypted_blocks)
-
+        #print(type(encrypted_blocks))
+        ciphertext_str = ""
+        for i in encrypted_blocks:
+            ciphertext_str += b64encode(i).decode("utf-8")
+            #blocks_64 = "".join(b64encode(encrypted_blocks).decode("utf-8"))
+        #ciphertext_b64 = b64encode(blocks_64)
+        #ciphertext_str = ciphertext_b64.decode("utf-8")
+        print(ciphertext_str)
         return encrypted_blocks
 
     def decrypt(self, ciphertext):

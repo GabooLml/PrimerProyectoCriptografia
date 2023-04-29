@@ -15,6 +15,7 @@ class RSAPSS:
         h = SHA512.new(message.encode("utf-8"))
         signature = pkcs1_15.new(self.key).sign(h)
         self.end_time = time.time()
+        print(type(signature))
         return signature
 
     def verify_message(self, message, signature):
@@ -41,6 +42,7 @@ class ECDSA:
         h = SHA512.new(message.encode('utf-8'))
         signature = DSS.new(self.key, 'fips-186-3').sign(h)
         self.end_time = time.time()
+        print(signature)
         return signature
     
     def verify_message(self, message, signature):
@@ -67,6 +69,7 @@ class EdDSA:
         h = SHA512.new(message.encode('utf-8'))
         signature = eddsa.new(self.key,'rfc8032').sign(h)
         self.end_time = time.time()
+        print(signature)
         return signature
 
     def verify_message(self, message, signature):

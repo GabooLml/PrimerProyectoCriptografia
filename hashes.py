@@ -1,4 +1,6 @@
 import time
+from base64 import b64encode
+from base64 import b64decode
 from Crypto import Random
 from Crypto.Hash import SHA512, SHA3_512
 from Crypto.Random import get_random_bytes
@@ -14,9 +16,10 @@ class SHA2:
         # Medir el tiempo que tarda en hashear
         self.start_time = time.time()
         self.h.update(data.encode("utf-8"))
-        hashvalue = self.h.hexdigest()
+        hashvalue = self.h.digest()
         self.end_time = time.time()
-        print(hashvalue)
+        value_b64 = b64encode(hashvalue)
+        print(value_b64.decode("utf-8"))
         return hashvalue
     
 class SHA3:
@@ -29,9 +32,10 @@ class SHA3:
         # Medir el tiempo que tarda en hashear
         self.start_time = time.time()
         self.h.update(data.encode("utf-8"))
-        hashvalue = self.h.hexdigest()
+        hashvalue = self.h.digest()
         self.end_time = time.time()
-        print(hashvalue)
+        value_b64 = b64encode(hashvalue)
+        print(value_b64.decode("utf-8"))
         return hashvalue
     
 class Scrypt:
@@ -45,5 +49,6 @@ class Scrypt:
         self.start_time = time.time()
         key = scrypt(password.encode("utf-8"), self.salt, 32, N=2**14, r=8, p=1)
         self.end_time = time.time()
-        print(key)
+        key_b64 = b64encode(key)
+        print(key_b64.decode("utf-8"))
         return key
