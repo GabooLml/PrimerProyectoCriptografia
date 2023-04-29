@@ -1,4 +1,6 @@
 import time
+from base64 import b64encode
+from base64 import b64decode
 from Crypto.Hash import SHA512
 from Crypto.PublicKey import RSA, ECC
 from Crypto.Signature import pkcs1_15, DSS, eddsa
@@ -15,7 +17,7 @@ class RSAPSS:
         h = SHA512.new(message.encode("utf-8"))
         signature = pkcs1_15.new(self.key).sign(h)
         self.end_time = time.time()
-        print(type(signature))
+        print(b64encode(signature).decode("utf-8"))
         return signature
 
     def verify_message(self, message, signature):
@@ -42,7 +44,7 @@ class ECDSA:
         h = SHA512.new(message.encode('utf-8'))
         signature = DSS.new(self.key, 'fips-186-3').sign(h)
         self.end_time = time.time()
-        print(signature)
+        print(b64encode(signature).decode("utf-8"))
         return signature
     
     def verify_message(self, message, signature):
@@ -69,7 +71,7 @@ class EdDSA:
         h = SHA512.new(message.encode('utf-8'))
         signature = eddsa.new(self.key,'rfc8032').sign(h)
         self.end_time = time.time()
-        print(signature)
+        print(b64encode(signature).decode("utf-8"))
         return signature
 
     def verify_message(self, message, signature):

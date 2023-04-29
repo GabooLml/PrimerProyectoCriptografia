@@ -5,9 +5,9 @@ from ciphers import *
 from hashes import *
 from signatures import *
 2
-vectores = ['Gabriel Rojas Mendez Teresita de Jesus Duran Lopez Alejandro Jesus Antonio Roblero','Universidad Nacional Autonoma de Mexico','Facultad de Ingenieria', "El Antonio se va al MIT"]
+vectores = ['Gabriel Rojas Mendez Teresita de Jesus Duran Lopez Alejandro Jesus Antonio Roblero','Universidad Nacional Autonoma de Mexico','Facultad de Ingenieria', "a"*100]
 
-executes = list(range(1,6))
+executes = list(range(1,101))
 time_list_1 = []
 time_list_2 = []
 time_list_3 = []
@@ -247,7 +247,7 @@ def main():
             plt.plot(executes, time_list_1, ':', label='ChaCha20')
             plt.plot(executes, time_list_2, label='AES ECB')
             plt.plot(executes, time_list_3, '--', label='AES GCM')
-            plt.plot(executes, time_list_4, label='RCA-OAEP')
+            plt.plot(executes, time_list_4, label='RSA-OAEP')
             plt.xlabel('Ejecuciones')
             plt.ylabel('Tiempo')
             plt.title('Cifrado')
@@ -261,7 +261,7 @@ def main():
             plt.plot(executes, time_list_1, label='ChaCha20')
             plt.plot(executes, time_list_2, label='AES ECB')
             plt.plot(executes, time_list_3, label='AES GCM')
-            plt.plot(executes, time_list_4, label='RCA-OAEP')
+            plt.plot(executes, time_list_4, label='RSA-OAEP')
             plt.xlabel('Ejecuciones')
             plt.ylabel('Tiempo')
             plt.title('Descifrado')
