@@ -4,182 +4,228 @@ import random
 from ciphers import *
 from hashes import *
 from signatures import *
+2
+vectores = ['Gabriel Rojas Mendez Teresita de Jesus Duran Lopez Alejandro Jesus Antonio Roblero','Universidad Nacional Autonoma de Mexico','Facultad de Ingenieria','a' * 100]
 
-plaintext = "Gabriel Rojas Mendez Teresita de Jesus Duran Lopez Alejandro Jesus Antonio Roblero"
-plaintext2 = "Universidad Nacional Autonoma de Mexico"
-plaintext3 = "Facultad de Ingenieria"
-plaintext4 = 'a'*1000
-
-vectores = [plaintext, plaintext2, plaintext3, plaintext4]
-
-executes = list(range(1,101))
-ChaCha_list = []
-AES_ECB_list = []
-AES_GCM_list = []
-RSA_OAEP_list = []
+executes = list(range(1,6))
+time_list_1 = []
+time_list_2 = []
+time_list_3 = []
+time_list_4 = []
 
 
 def pruebas_cifrado():
     ## Inicialización de arreglos
-    ChaCha_list.clear()
-    AES_ECB_list.clear()
-    AES_GCM_list.clear()
-    RSA_OAEP_list.clear()
+    time_list_1.clear()
+    time_list_2.clear()
+    time_list_3.clear()
+    time_list_4.clear()
 
     ## ChaCha 20
     for i in range(len(executes)):
+        vector = vectores[random.randint(0, 3)]
         cipherChacha20 = chacha20()
-        result = cipherChacha20.encrypt(vectores[random.randint(0, 3)])
+        print("=============== ChaCha ==========================")
+        print(vector)
+        result = cipherChacha20.encrypt(vector)
         total_time = cipherChacha20.end_time - cipherChacha20.start_time
-        ChaCha_list.append(total_time)
+        time_list_1.append(total_time)
 
     ## AES256-ECB
     mode1 = "ECB"   
     for i in range(len(executes)):
+        vector = vectores[random.randint(0, 3)]
         aes = AES256()
-        ciphertext = aes.encrypt(vectores[random.randint(0, 3)], mode1)
+        print("================ AES-256 ECB =========================")
+        print(vector)
+        ciphertext = aes.encrypt(vector, mode1)
         total_time = aes.end_time - aes.start_time
-        AES_ECB_list.append(total_time)
+        time_list_2.append(total_time)
     
     ## AES256-GCM
     mode2 = "GCM"
     for i in range(len(executes)):
+        vector = vectores[random.randint(0, 3)]
         aes = AES256()
-        ciphertext = aes.encrypt(vectores[random.randint(0, 3)], mode2)
+        print("================ AES-256 GCM =========================")
+        print(vector)
+        ciphertext = aes.encrypt(vector, mode2)
         total_time = aes.end_time - aes.start_time
-        AES_GCM_list.append(total_time)
+        time_list_3.append(total_time)
     
     ## RSA-OAEP 2048
     for i in range(len(executes)):
+        vector = vectores[random.randint(0, 3)]
         rsa = RSAOAEP()
-        ciphertext = rsa.encrypt(vectores[random.randint(0, 3)])
+        print("================ RSA-OAEP 2048 =========================")
+        print(vector)
+        ciphertext = rsa.encrypt(vector)
         total_time = rsa.end_time - rsa.start_time
-        RSA_OAEP_list.append(total_time)
+        time_list_4.append(total_time)
     
 def pruebas_descifrado():
     ## Inicialización de arreglos
-    ChaCha_list.clear()
-    AES_ECB_list.clear()
-    AES_GCM_list.clear()
-    RSA_OAEP_list.clear()
+    time_list_1.clear()
+    time_list_2.clear()
+    time_list_3.clear()
+    time_list_4.clear()
 
     ## ChaCha 20
     for i in range(len(executes)):
+        vector = vectores[random.randint(0, 3)]
         cipherChacha20 = chacha20()
-        result = cipherChacha20.encrypt(vectores[random.randint(0, 3)])
+        print("=============== ChaCha ==========================")
+        print(vector)
+        result = cipherChacha20.encrypt(vector)
         cipherChacha20.decrypt(result)
         total_time = cipherChacha20.end_time - cipherChacha20.start_time
-        ChaCha_list.append(total_time)
+        time_list_1.append(total_time)
     
     ## AES256-ECB
     mode1 = "ECB"
     for i in range(len(executes)):
+        vector = vectores[random.randint(0, 3)]
         aes = AES256()
-        ciphertext = aes.encrypt(vectores[random.randint(0, 3)], mode1)
+        print("=============== AES-256 ECB ==========================")
+        print(vector)
+        ciphertext = aes.encrypt(vector, mode1)
         aes.decrypt(ciphertext, mode1)
         total_time = aes.end_time - aes.start_time
-        AES_ECB_list.append(total_time)
+        time_list_2.append(total_time)
     
     ## AES256-GCM
     mode2 = "GCM"
     for i in range(len(executes)):
+        vector = vectores[random.randint(0, 3)]
         aes = AES256()
-        ciphertext = aes.encrypt(vectores[random.randint(0, 3)], mode2)
+        print("=============== AES-256 GCM ==========================")
+        print(vector)
+        ciphertext = aes.encrypt(vector, mode2)
         aes.decrypt(ciphertext, mode2)
         total_time = aes.end_time - aes.start_time
-        AES_GCM_list.append(total_time)
+        time_list_3.append(total_time)
     
     ## RSA-OAEP 2048
-    rsa = RSAOAEP()
     for i in range(len(executes)):
-        ciphertext = rsa.encrypt(vectores[random.randint(0, 3)])
+        vector = vectores[random.randint(0, 3)]
+        rsa = RSAOAEP()
+        print("============== RSA-OAEP 2048 ===========================")
+        print(vector)
+        ciphertext = rsa.encrypt(vector)
         rsa.decrypt(ciphertext)
         total_time = rsa.end_time - rsa.start_time
-        RSA_OAEP_list.append(total_time)
+        time_list_4.append(total_time)
     
 def pruebas_hash():
     ## Inicialización de arreglos
-    ChaCha_list.clear()
-    AES_ECB_list.clear()
-    AES_GCM_list.clear()
+    time_list_1.clear()
+    time_list_2.clear()
+    time_list_3.clear()
 
     ## SHA-2 512 bits
     for i in range(len(executes)):
+        vector = vectores[random.randint(0, 3)]
         sha2 = SHA2()
-        sha2.get_value_hash(vectores[random.randint(0, 3)])
+        print("============== SHA-2 512 BITS ===========================")
+        print(vector)
+        sha2.get_value_hash(vector)
         total_time = sha2.end_time - sha2.start_time
-        ChaCha_list.append(total_time)
+        time_list_1.append(total_time)
     
     ## SHA-3 512 bits
     for i in range(len(executes)):
+        vector = vectores[random.randint(0, 3)]
         sha3 = SHA3()
-        sha3.get_value_hash(vectores[random.randint(0, 3)])
+        print("============== SHA-3 512 BITS ===========================")
+        print(vector)
+        sha3.get_value_hash(vector)
         total_time = sha3.end_time - sha3.start_time
-        AES_ECB_list.append(total_time)
+        time_list_2.append(total_time)
 
     ## Scrypt 32 bits
     for i in range(len(executes)):
+        vector = vectores[random.randint(0, 3)]
         scryptV = Scrypt()
-        scryptV.get_key(vectores[random.randint(0, 3)])
+        print("============= Scrypt 32 BITS ============================")
+        print(vector)
+        scryptV.get_key(vector)
         total_time = scryptV.end_time - scryptV.start_time
-        AES_GCM_list.append(total_time)
+        time_list_3.append(total_time)
 
 def pruebas_firma():
     ## Inicialización de arreglos
-    ChaCha_list.clear()
-    AES_ECB_list.clear()
-    AES_GCM_list.clear()
+    time_list_1.clear()
+    time_list_2.clear()
+    time_list_3.clear()
 
     ## RSA-PSS
     for i in range(len(executes)):
+        vector = vectores[random.randint(0, 3)]
         rsa = RSAPSS()
-        signature = rsa.sign_message(vectores[random.randint(0, 3)])
+        print("============ RSA-PSS =============================")
+        print(vector)
+        signature = rsa.sign_message(vector)
         total_time = rsa.end_time - rsa.start_time
-        ChaCha_list.append(total_time)
+        time_list_1.append(total_time)
 
     ## ECDSA 521 bits
     for i in range(len(executes)):
+        vector = vectores[random.randint(0, 3)]
         ecc1 = ECDSA()
-        signature = ecc1.sign_message(vectores[random.randint(0, 3)])
+        print("============ ECDSA =============================")
+        print(vector)
+        signature = ecc1.sign_message(vector)
         total_time = ecc1.end_time - ecc1.start_time
-        AES_ECB_list.append(total_time)
+        time_list_2.append(total_time)
 
     ## EdDSA 32 bits
     for i in range(len(executes)):
+        vector = vectores[random.randint(0, 3)]
         ecc2 = EdDSA()
-        signature = ecc2.sign_message(vectores[random.randint(0, 3)])
+        print("============ EdDSA =============================")
+        print(vector)
+        signature = ecc2.sign_message(vector)
         total_time = ecc2.end_time - ecc2.start_time
-        AES_GCM_list.append(total_time)
+        time_list_3.append(total_time)
 
 def pruebas_verificacion():
     ## Inicialización de arreglos
-    ChaCha_list.clear()
-    AES_ECB_list.clear()
-    AES_GCM_list.clear()
+    time_list_1.clear()
+    time_list_2.clear()
+    time_list_3.clear()
 
     ## RSA-PSS
     for i in range(len(executes)):
         rsa = RSAPSS()
-        signature = rsa.sign_message(vectores[random.randint(0, 3)])
-        rsa.verify_message(plaintext, signature)
+        vector = vectores[random.randint(0, 3)]
+        print("============ RSA-PSS =============================")
+        print(vector)
+        signature = rsa.sign_message(vector)
+        rsa.verify_message(vector, signature)
         total_time = rsa.end_time - rsa.start_time
-        ChaCha_list.append(total_time)
+        time_list_1.append(total_time)
 
     ## ECDSA 521 bits
     for i in range(len(executes)):
+        vector = vectores[random.randint(0, 3)]
         ecc1 = ECDSA()
-        signature = ecc1.sign_message(vectores[random.randint(0, 3)])
-        ecc1.verify_message(plaintext, signature)
+        print("=========================================")
+        print(vector)
+        signature = ecc1.sign_message(vector)
+        ecc1.verify_message(vector, signature)
         total_time = ecc1.end_time - ecc1.start_time
-        AES_ECB_list.append(total_time)
+        time_list_2.append(total_time)
 
     ## EdDSA 32 bits
     for i in range(len(executes)):
+        vector = vectores[random.randint(0, 3)]
         ecc2 = EdDSA()
-        signature = ecc2.sign_message(vectores[random.randint(0, 3)])
-        ecc2.verify_message(plaintext, signature)
+        print("=========================================")
+        print(vector)
+        signature = ecc2.sign_message(vector)
+        ecc2.verify_message(vector, signature)
         total_time = ecc2.end_time - ecc2.start_time
-        AES_GCM_list.append(total_time)
+        time_list_3.append(total_time)
 
 def main():
     while True:
@@ -198,10 +244,10 @@ def main():
             print("Ha seleccionado la opción 1")
             pruebas_cifrado()
             plt.grid()
-            plt.plot(executes, ChaCha_list, ':', label='ChaCha20')
-            plt.plot(executes, AES_ECB_list, label='AES ECB')
-            plt.plot(executes, AES_GCM_list, '--', label='AES GCM')
-            plt.plot(executes, RSA_OAEP_list, label='RCA-OAEP')
+            plt.plot(executes, time_list_1, ':', label='ChaCha20')
+            plt.plot(executes, time_list_2, label='AES ECB')
+            plt.plot(executes, time_list_3, '--', label='AES GCM')
+            plt.plot(executes, time_list_4, label='RCA-OAEP')
             plt.xlabel('Ejecuciones')
             plt.ylabel('Tiempo')
             plt.title('Cifrado')
@@ -212,10 +258,10 @@ def main():
             print("Ha seleccionado la opción 2")
             pruebas_descifrado()
             plt.grid()
-            plt.plot(executes, ChaCha_list, label='ChaCha20')
-            plt.plot(executes, AES_ECB_list, label='AES ECB')
-            plt.plot(executes, AES_GCM_list, label='AES GCM')
-            plt.plot(executes, RSA_OAEP_list, label='RCA-OAEP')
+            plt.plot(executes, time_list_1, label='ChaCha20')
+            plt.plot(executes, time_list_2, label='AES ECB')
+            plt.plot(executes, time_list_3, label='AES GCM')
+            plt.plot(executes, time_list_4, label='RCA-OAEP')
             plt.xlabel('Ejecuciones')
             plt.ylabel('Tiempo')
             plt.title('Descifrado')
@@ -226,9 +272,9 @@ def main():
             print("Ha seleccionado la opción 3")
             pruebas_hash()
             plt.grid()
-            plt.plot(executes, ChaCha_list, label='SHA-2')
-            plt.plot(executes, AES_ECB_list, label='SHA-3')
-            plt.plot(executes, AES_GCM_list, label='Scrypt')
+            plt.plot(executes, time_list_1, label='SHA-2')
+            plt.plot(executes, time_list_2, label='SHA-3')
+            plt.plot(executes, time_list_3, label='Scrypt')
             plt.xlabel('Ejecuciones')
             plt.ylabel('Tiempo')
             plt.title('Hashing')
@@ -239,9 +285,9 @@ def main():
             print("Ha seleccionado la opción 4")
             pruebas_firma()
             plt.grid()
-            plt.plot(executes, ChaCha_list, label='RSA-PSS')
-            plt.plot(executes, AES_ECB_list, label='ECDSA')
-            plt.plot(executes, AES_GCM_list, label='EdDSA')
+            plt.plot(executes, time_list_1, label='RSA-PSS')
+            plt.plot(executes, time_list_2, label='ECDSA')
+            plt.plot(executes, time_list_3, label='EdDSA')
             plt.xlabel('Ejecuciones')
             plt.ylabel('Tiempo')
             plt.title('Firmas')
@@ -252,9 +298,9 @@ def main():
             print("Ha seleccionado la opción 5")
             pruebas_verificacion()
             plt.grid()
-            plt.plot(executes, ChaCha_list, label='RSA-PSS')
-            plt.plot(executes, AES_ECB_list, label='ECDSA')
-            plt.plot(executes, AES_GCM_list, label='EdDSA')
+            plt.plot(executes, time_list_1, label='RSA-PSS')
+            plt.plot(executes, time_list_2, label='ECDSA')
+            plt.plot(executes, time_list_3, label='EdDSA')
             plt.xlabel('Ejecuciones')
             plt.ylabel('Tiempo')
             plt.title('Verificaciones')

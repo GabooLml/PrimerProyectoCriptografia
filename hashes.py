@@ -16,6 +16,7 @@ class SHA2:
         self.h.update(data.encode("utf-8"))
         hashvalue = self.h.hexdigest()
         self.end_time = time.time()
+        print(hashvalue)
         return hashvalue
     
 class SHA3:
@@ -30,6 +31,7 @@ class SHA3:
         self.h.update(data.encode("utf-8"))
         hashvalue = self.h.hexdigest()
         self.end_time = time.time()
+        print(hashvalue)
         return hashvalue
     
 class Scrypt:
@@ -43,4 +45,5 @@ class Scrypt:
         self.start_time = time.time()
         key = scrypt(password.encode("utf-8"), self.salt, 32, N=2**14, r=8, p=1)
         self.end_time = time.time()
+        print(key)
         return key

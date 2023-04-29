@@ -22,6 +22,7 @@ class chacha20:
         ct = b64encode(ciphertext).decode('utf-8')
         result = json.dumps({'nonce':nonce, 'ciphertext':ct})
         self.end_time = time.time()
+        print(ciphertext)
         return result
 
     def decrypt(self, jsonInput):
@@ -34,6 +35,7 @@ class chacha20:
             cipher = ChaCha20.new(key=self.key, nonce=nonce)
             plaintext = cipher.decrypt(ciphertext)
             self.end_time = time.time()
+            print(plaintext)
             return plaintext.decode('ascii')
         except (ValueError, KeyError):
             print("Incorrect decryption")
@@ -53,6 +55,7 @@ class AES256:
             cipher = AES.new(self.key, AES.MODE_ECB)
             ciphertext =  cipher.encrypt(pad(plaintext.encode('utf-8'), AES.block_size))
             self.end_time = time.time()
+            print(ciphertext)
             return ciphertext
         elif mode == "GCM":
             # Medir el tiempo que tarda en cifrar
@@ -61,6 +64,7 @@ class AES256:
             self.nonce = cipher.nonce
             ciphertext = cipher.encrypt(plaintext.encode('utf8'))
             self.end_time = time.time()
+            print(ciphertext)
             return ciphertext
         else:
             print("Invalid mode")
@@ -73,6 +77,7 @@ class AES256:
             cipher = AES.new(self.key, AES.MODE_ECB)
             plaintext = unpad(cipher.decrypt(ciphertext), AES.block_size).decode('utf8')
             self.end_time = time.time()
+            print(plaintext)
             return plaintext
         elif mode == "GCM":
             # Medir el tiempo que tarda en descifrar
@@ -80,6 +85,7 @@ class AES256:
             cipher = AES.new(self.key, AES.MODE_GCM, nonce=self.nonce)
             plaintext = cipher.decrypt(ciphertext).decode('utf8')
             self.end_time = time.time()
+            print(plaintext)
             return plaintext
         else:
             print("Invalid mode")
@@ -107,6 +113,7 @@ class RSAOAEP:
         # Cifrar cada bloque de datos con RSA-OAEP
         encrypted_blocks = [cipher_rsa.encrypt(block) for block in data_blocks]
         self.end_time = time.time()
+        print(encrypted_blocks)
 
         return encrypted_blocks
 
@@ -128,5 +135,6 @@ class RSAOAEP:
 
         # Convertir los datos descifrados de bytes a cadena
         plain_text = decrypted_data.decode()
+        print(plain_text)
 
         return plain_text
