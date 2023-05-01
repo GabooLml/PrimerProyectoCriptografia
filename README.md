@@ -14,15 +14,12 @@ Descarga la versión de ejecutable que se adecue a tu sistema operativo.
 - [Windows](https://github.com/GabooLml/PrimerProyectoCriptografia/blob/master/dist/Windows.exe?raw=true)
 - [Linux](https://github.com/GabooLml/PrimerProyectoCriptografia/blob/master/dist/Linux?raw=true)
 - [MacOS Monterey Intel](https://github.com/GabooLml/PrimerProyectoCriptografia/blob/master/dist/MacOSMontereyIntel?raw=true)
-## Como usar
- Después de descargar el repositorio, ubicar todos los archivos .py en la misma carpeta y seguir las instrucciones de acuerdo al sistema operativo
- ### Windows
- Abrir el simbolo de sistema en la misma ubicación que los archivos .py y ejecutar el comando:
- python run.py
- ### Linux
- Abrir la terminal en la misma ubicación que los archivos .py y ejecutar el comando:
- python3 run.py
- ### MacOS
- Abrir la terminal en la misma ubicación que los archivos .py y ejecutar el comando:
 
- Se crearán carpetas del entorno virtual (proyecto1) en la ubicación donde se encuentre run.py que servirán para ejecutar el programa
+## Ejecutarlo desde el código fuente
+ - Descarga el repositorio y asegúrate de tener el intérprete de [Python](https://www.python.org/downloads/).
+ - Con la terminal de tu sistema operativo ejecuta el siguiente comando para instalar los módulos necesarios.
+   `$ pip install pycryptodome matplotlib`
+
+ - Localiza la raíz del proyecto y ejecuta el intérprete
+   `$ python3 main.py`
+
