@@ -5,7 +5,10 @@ from ciphers import *
 from hashes import *
 from signatures import *
 2
-vectores = ['Gabriel Rojas Mendez Teresita de Jesus Duran Lopez Alejandro Jesus Antonio Roblero','Universidad Nacional Autonoma de Mexico','Facultad de Ingenieria', "a"*100]
+vectores = ['Gabriel Rojas Mendez Teresita de Jesus Duran Lopez Alejandro Jesus Antonio Roblero',
+            'Universidad Nacional Autonoma de Mexico',
+            'Facultad de Ingenieria', 
+            'a' * 100]
 
 executes = list(range(1,101))
 time_list_1 = []
