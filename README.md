@@ -9,13 +9,13 @@
  * [Teresita de Jesús Durán López](https://github.com/teredl8)
  * [Gabriel Rojas Méndez](https://github.com/GabooLml)
 
-## Funcionamiento
+## Ejecutar el programa desde un archivo
 Descarga la versión de ejecutable que se adecue a tu sistema operativo.
 - [Windows](https://github.com/GabooLml/PrimerProyectoCriptografia/blob/master/dist/Windows.exe?raw=true)
 - [Linux](https://github.com/GabooLml/PrimerProyectoCriptografia/blob/master/dist/Linux?raw=true)
 - [MacOS Monterey Intel](https://github.com/GabooLml/PrimerProyectoCriptografia/blob/master/dist/MacOSMontereyIntel?raw=true)
 
-## Ejecutarlo desde el código fuente
+## Ejecutar el programa desde el código fuente
  - Descarga el repositorio y asegúrate de tener el intérprete de [Python](https://www.python.org/downloads/).
  - Con la terminal de tu sistema operativo ejecuta el siguiente comando para instalar los módulos necesarios.
    `$ pip install pycryptodome matplotlib`
